@@ -1,0 +1,848 @@
+/* ========================================
+   PERSONAL PORTFOLIO - MODERN DESIGN
+   ======================================== */
+
+
+/* ---------- GOOGLE FONTS ---------- */
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap");
+
+
+/* ========================================
+   RESET
+======================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+/* ========================================
+   BODY
+======================================== */
+
+body {
+    font-family: "Poppins", sans-serif;
+    background: linear-gradient(
+        135deg,
+        #fff5f7,
+        #f3e8ff,
+        #e0f2fe
+    );
+    color: #2d2430;
+    line-height: 1.7;
+}
+
+
+/* ========================================
+   HEADER
+======================================== */
+
+header {
+    text-align: center;
+    padding: 70px 20px 45px;
+
+    background: linear-gradient(
+        135deg,
+        #7c3aed,
+        #db2777,
+        #f97316
+    );
+
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+
+/* Decorative circles */
+
+header::before {
+    content: "";
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    top: -100px;
+    left: -80px;
+}
+
+header::after {
+    content: "";
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    bottom: -100px;
+    right: -50px;
+}
+
+
+header h1 {
+    font-family: "Playfair Display", serif;
+    font-size: 55px;
+    letter-spacing: 2px;
+    margin-bottom: 5px;
+
+    text-shadow:
+        2px 3px 8px rgba(0, 0, 0, 0.2);
+
+    position: relative;
+    z-index: 1;
+
+    animation: fadeDown 1s ease;
+}
+
+
+header p {
+    font-size: 19px;
+    margin-bottom: 25px;
+    opacity: 0.95;
+
+    position: relative;
+    z-index: 1;
+
+    animation: fadeUp 1s ease;
+}
+
+
+/* ========================================
+   NAVIGATION - FLEXBOX
+======================================== */
+
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 15px;
+    flex-wrap: wrap;
+
+    position: relative;
+    z-index: 2;
+}
+
+
+nav a {
+    text-decoration: none;
+    color: white;
+
+    padding: 10px 20px;
+
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 25px;
+
+    font-weight: 500;
+
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease,
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+
+nav a:hover {
+    background-color: white;
+    color: #7c3aed;
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+
+/* ========================================
+   MAIN
+======================================== */
+
+main {
+    width: 90%;
+    max-width: 1100px;
+
+    margin: 40px auto;
+}
+
+
+/* ========================================
+   ALL SECTIONS
+======================================== */
+
+section {
+    background: rgba(255, 255, 255, 0.88);
+
+    backdrop-filter: blur(10px);
+
+    margin-bottom: 35px;
+    padding: 40px;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 10px 30px rgba(80, 30, 100, 0.12);
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+
+section:hover {
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 18px 40px rgba(80, 30, 100, 0.18);
+}
+
+
+section h2 {
+    font-family: "Playfair Display", serif;
+
+    color: #7c3aed;
+
+    font-size: 32px;
+
+    margin-bottom: 25px;
+
+    text-align: center;
+}
+
+
+/* Underline */
+
+section h2::after {
+    content: "";
+
+    display: block;
+
+    width: 70px;
+    height: 4px;
+
+    background:
+        linear-gradient(
+            to right,
+            #7c3aed,
+            #db2777
+        );
+
+    margin: 8px auto;
+
+    border-radius: 10px;
+}
+
+
+section h3 {
+    color: #db2777;
+
+    margin: 20px 0 10px;
+}
+
+
+/* ========================================
+   ABOUT
+======================================== */
+
+#about {
+    text-align: center;
+}
+
+
+#about img {
+    width: 210px;
+    height: 210px;
+
+    object-fit: cover;
+
+    border-radius: 50%;
+
+    margin: 10px auto 25px;
+
+    border: 6px solid white;
+
+    outline: 4px solid #db2777;
+
+    box-shadow:
+        0 10px 25px rgba(219, 39, 119, 0.3);
+
+    transition:
+        transform 0.4s ease,
+        box-shadow 0.4s ease;
+}
+
+
+#about img:hover {
+    transform: scale(1.06) rotate(3deg);
+
+    box-shadow:
+        0 15px 35px rgba(219, 39, 119, 0.4);
+}
+
+
+#about p {
+    max-width: 800px;
+
+    margin: 12px auto;
+
+    font-size: 17px;
+}
+
+
+/* ========================================
+   SKILLS - CSS GRID
+======================================== */
+
+#skills ul,
+#skills ol {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(150px, 1fr));
+
+    gap: 15px;
+
+    list-style: none;
+
+    margin: 15px 0 25px;
+}
+
+
+#skills li {
+    background:
+        linear-gradient(
+            135deg,
+            #ede9fe,
+            #fce7f3
+        );
+
+    padding: 12px 18px;
+
+    border-radius: 25px;
+
+    text-align: center;
+
+    color: #5b21b6;
+
+    font-weight: 500;
+
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease,
+        color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+
+#skills li:hover {
+    background:
+        linear-gradient(
+            135deg,
+            #7c3aed,
+            #db2777
+        );
+
+    color: white;
+
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 8px 20px rgba(124, 58, 237, 0.3);
+}
+
+
+/* ========================================
+   PROJECTS - CSS GRID
+======================================== */
+
+#projects {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 25px;
+}
+
+
+#projects h2 {
+    grid-column: 1 / -1;
+}
+
+
+article {
+    text-align: left;
+
+    padding: 25px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #f8f0ff
+        );
+
+    border-radius: 18px;
+
+    border: 1px solid #e9d5ff;
+
+    box-shadow:
+        0 8px 20px rgba(124, 58, 237, 0.1);
+
+    transition:
+        transform 0.4s ease,
+        box-shadow 0.4s ease;
+}
+
+
+article:hover {
+    transform: translateY(-8px);
+
+    box-shadow:
+        0 15px 30px rgba(219, 39, 119, 0.2);
+}
+
+
+article h3 {
+    font-size: 22px;
+
+    color: #7c3aed;
+}
+
+
+article p {
+    margin: 12px 0 20px;
+}
+
+
+article a {
+    display: inline-block;
+
+    text-decoration: none;
+
+    background:
+        linear-gradient(
+            135deg,
+            #7c3aed,
+            #db2777
+        );
+
+    color: white;
+
+    padding: 10px 20px;
+
+    border-radius: 25px;
+
+    font-weight: 500;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+
+article a:hover {
+    transform: scale(1.05);
+
+    box-shadow:
+        0 6px 15px rgba(219, 39, 119, 0.3);
+}
+
+
+/* ========================================
+   EDUCATION TABLE
+======================================== */
+
+#education {
+    overflow-x: auto;
+}
+
+
+table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    border-radius: 12px;
+
+    overflow: hidden;
+}
+
+
+th {
+    background:
+        linear-gradient(
+            135deg,
+            #7c3aed,
+            #db2777
+        );
+
+    color: white;
+
+    padding: 15px;
+
+    font-size: 16px;
+}
+
+
+td {
+    padding: 15px;
+
+    text-align: center;
+
+    background-color: white;
+
+    border-bottom:
+        1px solid #f0e5f5;
+}
+
+
+tr:hover td {
+    background-color: #fdf4ff;
+}
+
+
+/* ========================================
+   CONTACT FORM
+======================================== */
+
+#contact {
+    max-width: 800px;
+
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+form {
+    max-width: 650px;
+
+    margin: 20px auto;
+}
+
+
+label {
+    display: block;
+
+    margin-top: 12px;
+
+    font-weight: 600;
+
+    color: #5b21b6;
+}
+
+
+input,
+textarea {
+    width: 100%;
+
+    padding: 14px 16px;
+
+    margin-top: 6px;
+
+    border: 2px solid #e9d5ff;
+
+    border-radius: 10px;
+
+    font-size: 15px;
+
+    font-family: "Poppins", sans-serif;
+
+    transition:
+        border-color 0.3s ease,
+        box-shadow 0.3s ease,
+        background-color 0.3s ease;
+
+    background-color: #faf5ff;
+}
+
+
+input:focus,
+textarea:focus {
+    outline: none;
+
+    border-color: #db2777;
+
+    background-color: white;
+
+    box-shadow:
+        0 0 0 4px rgba(219, 39, 119, 0.1);
+}
+
+
+textarea {
+    resize: vertical;
+}
+
+
+/* ========================================
+   BUTTON
+======================================== */
+
+button {
+    display: block;
+
+    width: 100%;
+
+    margin-top: 15px;
+
+    padding: 14px;
+
+    border: none;
+
+    border-radius: 30px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #7c3aed,
+            #db2777
+        );
+
+    color: white;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 17px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+
+button:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 10px 20px rgba(219, 39, 119, 0.3);
+}
+
+
+button:active {
+    transform: scale(0.98);
+}
+
+
+/* ========================================
+   FOOTER
+======================================== */
+
+footer {
+    background:
+        linear-gradient(
+            135deg,
+            #2e1065,
+            #701a75
+        );
+
+    color: white;
+
+    text-align: center;
+
+    padding: 35px 20px;
+
+    margin-top: 50px;
+}
+
+
+footer p {
+    margin: 10px;
+}
+
+
+footer a {
+    text-decoration: none;
+
+    color: #f9a8d4;
+
+    font-weight: 600;
+
+    margin: 0 10px;
+
+    transition:
+        color 0.3s ease;
+}
+
+
+footer a:hover {
+    color: white;
+}
+
+
+/* ========================================
+   ANIMATIONS
+======================================== */
+
+@keyframes fadeDown {
+
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+@keyframes fadeUp {
+
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* ========================================
+   RESPONSIVE DESIGN
+======================================== */
+
+@media (max-width: 768px) {
+
+    header {
+        padding: 50px 15px 35px;
+    }
+
+
+    header h1 {
+        font-size: 38px;
+    }
+
+
+    header p {
+        font-size: 16px;
+    }
+
+
+    main {
+        width: 92%;
+    }
+
+
+    section {
+        padding: 25px 20px;
+    }
+
+
+    section h2 {
+        font-size: 28px;
+    }
+
+
+    /* Projects become one column */
+
+    #projects {
+        grid-template-columns: 1fr;
+    }
+
+
+    /* Navigation becomes responsive */
+
+    nav {
+        gap: 8px;
+    }
+
+
+    nav a {
+        padding: 8px 14px;
+
+        font-size: 14px;
+    }
+
+
+    /* Profile image */
+
+    #about img {
+        width: 170px;
+        height: 170px;
+    }
+
+
+    /* Table */
+
+    th,
+    td {
+        padding: 10px;
+
+        font-size: 13px;
+    }
+
+
+    /* Skills */
+
+    #skills ul,
+    #skills ol {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+
+/* ========================================
+   SMALL MOBILE SCREEN
+======================================== */
+
+@media (max-width: 480px) {
+
+    header h1 {
+        font-size: 32px;
+    }
+
+
+    header p {
+        font-size: 14px;
+    }
+
+
+    nav {
+        flex-direction: column;
+        width: 100%;
+    }
+
+
+    nav a {
+        width: 100%;
+        text-align: center;
+    }
+
+
+    section {
+        padding: 20px 15px;
+    }
+
+
+    #skills ul,
+    #skills ol {
+        grid-template-columns: 1fr;
+    }
+
+
+    article {
+        padding: 20px;
+    }
+
+
+    #about img {
+        width: 150px;
+        height: 150px;
+    }
+}
