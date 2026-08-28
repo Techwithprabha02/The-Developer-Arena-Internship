@@ -1,7 +1,7 @@
+
 // ==========================================
 // INTERACTIVE PORTFOLIO - script.js
 // ==========================================
-
 
 // ==========================================
 // 1. PAGE LOAD
@@ -9,28 +9,35 @@
 
 document.addEventListener("DOMContentLoaded", function () {
     console.log("Portfolio JavaScript Loaded Successfully!");
-
+  createThemeButton();
     loadDarkMode();
     addWelcomeMessage();
     setupNavigation();
     setupContactForm();
     setupProjectLinks();
     setupInteractiveEffects();
+   setupKeyboardEvents();
+
 });
 
 
 // ==========================================
-// DARK / LIGHT MODE
+// 2. DARK / LIGHT MODE
 // ==========================================
 
-document.addEventListener("DOMContentLoaded", function () {
+function createThemeButton() {
 
-    // Create Dark Mode button
+    // Check if button already exists
+    if (document.getElementById("themeButton")) {
+        return;
+    }
+
     const button = document.createElement("button");
 
     button.id = "themeButton";
     button.textContent = "🌙 Dark Mode";
 
+    // Button styling
     button.style.position = "fixed";
     button.style.top = "20px";
     button.style.right = "20px";
@@ -39,44 +46,64 @@ document.addEventListener("DOMContentLoaded", function () {
     button.style.borderRadius = "8px";
     button.style.cursor = "pointer";
     button.style.zIndex = "1000";
+    button.style.fontWeight = "bold";
 
     document.body.appendChild(button);
 
+    // Button click event
+    button.addEventListener("click", toggleDarkMode);
+}
 
-    // Check saved theme
+
+// Toggle Dark Mode
+function toggleDarkMode() {
+
+    document.body.classList.toggle("dark-mode");
+
+    const isDarkMode =
+        document.body.classList.contains("dark-mode");
+
+    const button = document.getElementById("themeButton");
+
+    if (isDarkMode) {
+
+        button.textContent = "☀️ Light Mode";
+
+        localStorage.setItem("theme", "dark");
+
+    } else {
+
+        button.textContent = "🌙 Dark Mode";
+
+        localStorage.setItem("theme", "light");
+    }
+}
+
+
+// Load saved theme
+function loadDarkMode() {
+
     const savedTheme = localStorage.getItem("theme");
 
+    const button = document.getElementById("themeButton");
+
     if (savedTheme === "dark") {
+
         document.body.classList.add("dark-mode");
-        button.textContent = "☀️ Light Mode";
-    }
 
-
-    // Button click
-    button.addEventListener("click", function () {
-
-        document.body.classList.toggle("dark-mode");
-
-
-        // Check current mode
-        if (document.body.classList.contains("dark-mode")) {
-
-            // Dark Mode
+        if (button) {
             button.textContent = "☀️ Light Mode";
-
-            localStorage.setItem("theme", "dark");
-
-        } else {
-
-            // Light Mode
-            button.textContent = "🌙 Dark Mode";
-
-            localStorage.setItem("theme", "light");
         }
 
-    });
+    } else {
 
-});
+        document.body.classList.remove("dark-mode");
+
+        if (button) {
+            button.textContent = "🌙 Dark Mode";
+        }
+    }
+}
 
 
 // ==========================================
@@ -87,7 +114,14 @@ function addWelcomeMessage() {
 
     const header = document.querySelector("header");
 
-    if (!header) return;
+    if (!header) {
+        return;
+    }
+
+    // Prevent duplicate message
+    if (document.getElementById("welcomeMessage")) {
+        return;
+    }
 
     const welcome = document.createElement("p");
 
@@ -108,22 +142,28 @@ function addWelcomeMessage() {
 
 function setupNavigation() {
 
-    const navLinks = document.querySelectorAll("nav a");
+    const navLinks =
+        document.querySelectorAll("nav a");
 
     navLinks.forEach(function (link) {
 
         link.addEventListener("click", function (event) {
 
-            const targetId = link.getAttribute("href");
+            const targetId =
+                link.getAttribute("href");
 
-            if (targetId && targetId.startsWith("#")) {
-
-                event.preventDefault();
+            if (
+                targetId &&
+                targetId.startsWith("#") &&
+                targetId.length > 1
+            ) {
 
                 const targetSection =
                     document.querySelector(targetId);
 
                 if (targetSection) {
+
+                    event.preventDefault();
 
                     targetSection.scrollIntoView({
                         behavior: "smooth"
@@ -136,42 +176,67 @@ function setupNavigation() {
 
 
 // ==========================================
-// 5. CONTACT FORM VALIDATION
+// 5. CONTACT FORM
 // ==========================================
 
 function setupContactForm() {
 
-    const form = document.querySelector("#contact form");
+    const form =
+        document.querySelector("#contact form");
 
-    if (!form) return;
+    if (!form) {
+        console.log("Contact form not found.");
+        return;
+    }
 
     form.addEventListener("submit", validateForm);
 
+    // Get form fields
+    const name =
+        document.getElementById("name");
+
+    const email =
+        document.getElementById("email");
+
+    const subject =
+        document.getElementById("subject");
+
+    const message =
+        document.getElementById("message");
+
+
     // Real-time validation
-    const name = document.getElementById("name");
-    const email = document.getElementById("email");
-    const subject = document.getElementById("subject");
-    const message = document.getElementById("message");
 
-    name.addEventListener("input", function () {
-        validateName();
-    });
+    if (name) {
+        name.addEventListener("input", function () {
+            validateName();
+        });
+    }
 
-    email.addEventListener("input", function () {
-        validateEmail();
-    });
+    if (email) {
+        email.addEventListener("input", function () {
+            validateEmail();
+        });
+    }
 
-    subject.addEventListener("input", function () {
-        validateSubject();
-    });
+    if (subject) {
+        subject.addEventListener("input", function () {
+            validateSubject();
+        });
+    }
 
-    message.addEventListener("input", function () {
-        validateMessage();
-    });
+    if (message) {
+        message.addEventListener("input", function () {
+            validateMessage();
+        });
+    }
 }
 
 
-// Main validation function
+// ==========================================
+// 6. MAIN FORM VALIDATION
+// ==========================================
+
 function validateForm(event) {
 
     event.preventDefault();
@@ -194,13 +259,19 @@ function validateForm(event) {
         isValid = false;
     }
 
+
     if (isValid) {
 
         showSuccess(
             "Message sent successfully! Thank you for contacting me. 😊"
         );
 
-        document.querySelector("#contact form").reset();
+        const form =
+            document.querySelector("#contact form");
+
+        if (form) {
+            form.reset();
+        }
 
         clearErrors();
     }
@@ -208,21 +279,33 @@ function validateForm(event) {
 
 
 // ==========================================
-// 6. NAME VALIDATION
+// 7. NAME VALIDATION
 // ==========================================
 
 function validateName() {
 
-    const name = document.getElementById("name");
+    const name =
+        document.getElementById("name");
 
-    if (name.value.trim() === "") {
+    if (!name) {
+        return false;
+    }
 
-        showError(name, "Name is required.");
+    const value = name.value.trim();
+
+
+    if (value === "") {
+
+        showError(
+            name,
+            "Name is required."
+        );
 
         return false;
     }
 
-    if (name.value.trim().length < 3) {
+
+    if (value.length < 3) {
 
         showError(
             name,
@@ -232,6 +315,7 @@ function validateName() {
         return false;
     }
 
+
     clearError(name);
 
     return true;
@@ -239,24 +323,37 @@ function validateName() {
 
 
 // ==========================================
-// 7. EMAIL VALIDATION
+// 8. EMAIL VALIDATION
 // ==========================================
 
 function validateEmail() {
 
-    const email = document.getElementById("email");
+    const email =
+        document.getElementById("email");
+
+    if (!email) {
+        return false;
+    }
+
+    const value =
+        email.value.trim();
 
     const emailPattern =
         /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (email.value.trim() === "") {
 
-        showError(email, "Email is required.");
+    if (value === "") {
+
+        showError(
+            email,
+            "Email is required."
+        );
 
         return false;
     }
 
-    if (!emailPattern.test(email.value.trim())) {
+
+    if (!emailPattern.test(value)) {
 
         showError(
             email,
@@ -266,6 +363,7 @@ function validateEmail() {
         return false;
     }
 
+
     clearError(email);
 
     return true;
@@ -273,7 +371,7 @@ function validateEmail() {
 
 
 // ==========================================
-// 8. SUBJECT VALIDATION
+// 9. SUBJECT VALIDATION
 // ==========================================
 
 function validateSubject() {
@@ -281,7 +379,15 @@ function validateSubject() {
     const subject =
         document.getElementById("subject");
 
-    if (subject.value.trim() === "") {
+    if (!subject) {
+        return false;
+    }
+
+    const value =
+        subject.value.trim();
+
+
+    if (value === "") {
 
         showError(
             subject,
@@ -291,6 +397,7 @@ function validateSubject() {
         return false;
     }
 
+
     clearError(subject);
 
     return true;
@@ -298,7 +405,7 @@ function validateSubject() {
 
 
 // ==========================================
-// 9. MESSAGE VALIDATION
+// 10. MESSAGE VALIDATION
 // ==========================================
 
 function validateMessage() {
@@ -306,7 +413,15 @@ function validateMessage() {
     const message =
         document.getElementById("message");
 
-    if (message.value.trim() === "") {
+    if (!message) {
+        return false;
+    }
+
+    const value =
+        message.value.trim();
+
+
+    if (value === "") {
 
         showError(
             message,
@@ -316,7 +431,8 @@ function validateMessage() {
         return false;
     }
 
-    if (message.value.trim().length < 10) {
+
+    if (value.length < 10) {
 
         showError(
             message,
@@ -326,6 +442,7 @@ function validateMessage() {
         return false;
     }
 
+
     clearError(message);
 
     return true;
@@ -333,112 +450,169 @@ function validateMessage() {
 
 
 // ==========================================
-// 10. SHOW ERROR
+// 11. SHOW ERROR
 // ==========================================
 
 function showError(input, message) {
 
+    if (!input) {
+        return;
+    }
+
     clearError(input);
 
-    input.style.border = "2px solid red";
+    input.style.border =
+        "2px solid red";
 
-    const error = document.createElement("small");
 
-    error.className = "error-message";
+    const error =
+        document.createElement("small");
 
-    error.textContent = message;
+    error.className =
+        "error-message";
 
-    error.style.color = "red";
-    error.style.display = "block";
-    error.style.marginTop = "5px";
+    error.textContent =
+        message;
 
-    input.parentNode.insertBefore(
-        error,
-        input.nextSibling
-    );
+    error.style.color =
+        "red";
+
+    error.style.display =
+        "block";
+
+    error.style.marginTop =
+        "5px";
+
+
+    if (input.parentNode) {
+
+        input.parentNode.insertBefore(
+            error,
+            input.nextSibling
+        );
+    }
 }
 
 
 // ==========================================
-// 11. CLEAR ERROR
+// 12. CLEAR ERROR
 // ==========================================
 
 function clearError(input) {
 
+    if (!input) {
+        return;
+    }
+
     input.style.border = "";
 
-    const nextElement = input.nextElementSibling;
+    const nextElement =
+        input.nextElementSibling;
+
 
     if (
         nextElement &&
-        nextElement.classList.contains("error-message")
+        nextElement.classList.contains(
+            "error-message"
+        )
     ) {
+
         nextElement.remove();
     }
 }
 
 
-// Clear all errors
+// ==========================================
+// 13. CLEAR ALL ERRORS
+// ==========================================
+
 function clearErrors() {
 
     const errors =
-        document.querySelectorAll(".error-message");
+        document.querySelectorAll(
+            ".error-message"
+        );
 
     errors.forEach(function (error) {
         error.remove();
     });
+
 
     const inputs =
         document.querySelectorAll(
             "#contact input, #contact textarea"
         );
 
+
     inputs.forEach(function (input) {
+
         input.style.border = "";
     });
 }
 
 
 // ==========================================
-// 12. SUCCESS MESSAGE
+// 14. SUCCESS MESSAGE
 // ==========================================
 
 function showSuccess(message) {
 
     let success =
-        document.getElementById("successMessage");
+        document.getElementById(
+            "successMessage"
+        );
+
 
     if (!success) {
 
-        success = document.createElement("p");
+        success =
+            document.createElement("p");
 
-        success.id = "successMessage";
+        success.id =
+            "successMessage";
+
 
         const form =
-            document.querySelector("#contact form");
+            document.querySelector(
+                "#contact form"
+            );
 
-        form.parentNode.insertBefore(
-            success,
-            form
-        );
+
+        if (form && form.parentNode) {
+
+            form.parentNode.insertBefore(
+                success,
+                form
+            );
+        }
     }
 
-    success.textContent = message;
 
-    success.style.color = "green";
-    success.style.fontWeight = "bold";
-    success.style.marginBottom = "15px";
+    success.textContent =
+        message;
+
+    success.style.color =
+        "green";
+
+    success.style.fontWeight =
+        "bold";
+
+    success.style.marginBottom =
+        "15px";
+
 
     setTimeout(function () {
 
-        success.remove();
+        if (success) {
+            success.remove();
+        }
 
     }, 5000);
 }
 
 
 // ==========================================
-// 13. PROJECT INTERACTION
+// 15. PROJECT INTERACTION
 // ==========================================
 
 function setupProjectLinks() {
@@ -448,30 +622,45 @@ function setupProjectLinks() {
             "#projects article a"
         );
 
+
     projectLinks.forEach(function (link) {
 
-        link.addEventListener("click", function (event) {
+        link.addEventListener(
+            "click",
+            function (event) {
 
-            const projectName =
-                link.parentElement.querySelector("h3");
+                const projectName =
+                    link.parentElement
+                        ?.querySelector("h3");
 
-            if (link.getAttribute("href") === "#") {
 
-                event.preventDefault();
+                if (
+                    link.getAttribute("href") === "#"
+                ) {
 
-                alert(
-                    "Project: " +
-                    projectName.textContent +
-                    "\n\nProject link will be available soon! 🚀"
-                );
+                    event.preventDefault();
+
+
+                    const projectTitle =
+                        projectName
+                            ? projectName.textContent
+                            : "Unknown Project";
+
+
+                    alert(
+                        "Project: " +
+                        projectTitle +
+                        "\n\nProject link will be available soon! 🚀"
+                    );
+                }
             }
-        });
+        );
     });
 }
 
 
 // ==========================================
-// 14. HOVER EFFECT
+// 16. HOVER EFFECT
 // ==========================================
 
 function setupInteractiveEffects() {
@@ -481,87 +670,129 @@ function setupInteractiveEffects() {
             "#projects article"
         );
 
+
     articles.forEach(function (article) {
 
-        article.addEventListener("mouseenter", function () {
+        article.addEventListener(
+            "mouseenter",
+            function () {
 
-            article.style.transform =
-                "scale(1.03)";
+                article.style.transform =
+                    "scale(1.03)";
 
-            article.style.transition =
-                "0.3s";
+                article.style.transition =
+                    "0.3s";
+            }
+        );
 
-        });
 
-        article.addEventListener("mouseleave", function () {
+        article.addEventListener(
+            "mouseleave",
+            function () {
 
-            article.style.transform =
-                "scale(1)";
-        });
+                article.style.transform =
+                    "scale(1)";
+            }
+        );
     });
 }
 
 
 // ==========================================
-// 15. SCROLL EVENT
+// 17. SCROLL EVENT
 // ==========================================
 
-window.addEventListener("scroll", function () {
+window.addEventListener(
+    "scroll",
+    function () {
 
-    const sections =
-        document.querySelectorAll("main section");
+        const sections =
+            document.querySelectorAll(
+                "main section"
+            );
 
-    const navLinks =
-        document.querySelectorAll("nav a");
-
-    let currentSection = "";
-
-    sections.forEach(function (section) {
-
-        const sectionTop =
-            section.offsetTop - 100;
-
-        if (window.scrollY >= sectionTop) {
-
-            currentSection =
-                section.getAttribute("id");
-        }
-    });
-
-    navLinks.forEach(function (link) {
-
-        link.style.fontWeight = "normal";
-
-        if (
-            link.getAttribute("href") ===
-            "#" + currentSection
-        ) {
-            link.style.fontWeight = "bold";
-        }
-    });
-});
+        const navLinks =
+            document.querySelectorAll(
+                "nav a"
+            );
 
 
-// ==========================================
-// 16. KEYBOARD EVENT
-// ==========================================
+        let currentSection = "";
 
-document.addEventListener("keydown", function (event) {
 
-    // Press "D" to toggle dark mode
-    if (
-        event.key.toLowerCase() === "d" &&
-        !event.target.matches("input, textarea")
-    ) {
-        toggleDarkMode();
+        sections.forEach(
+            function (section) {
+
+                const sectionTop =
+                    section.offsetTop - 100;
+
+
+                if (
+                    window.scrollY >=
+                    sectionTop
+                ) {
+
+                    currentSection =
+                        section.getAttribute(
+                            "id"
+                        );
+                }
+            }
+        );
+
+
+        navLinks.forEach(
+            function (link) {
+
+                link.style.fontWeight =
+                    "normal";
+
+
+                if (
+                    link.getAttribute("href") ===
+                    "#" + currentSection
+                ) {
+
+                    link.style.fontWeight =
+                        "bold";
+                }
+            }
+        );
     }
-});
+);
 
 
 // ==========================================
-// END
+// 18. KEYBOARD EVENT
+// ==========================================
+
+function setupKeyboardEvents() {
+
+    document.addEventListener(
+        "keydown",
+        function (event) {
+
+            // Press D to toggle Dark Mode
+
+            if (
+                event.key.toLowerCase() === "d" &&
+                !event.target.matches(
+                    "input, textarea"
+                )
+            ) {
+
+                toggleDarkMode();
+            }
+        }
+    );
+}
+
+
+// ==========================================
+// 19. FINAL MESSAGE
 // ==========================================
 
 console.log(
     "All JavaScript features initialized successfully!"
 );
+
