@@ -113,6 +113,117 @@ header p {
     animation: fadeUp 1s ease;
 }
 
+/* ============================= */
+/* DARK / LIGHT MODE              */
+/* ============================= */
+
+/* Smooth transition */
+body,
+header,
+main,
+section,
+article,
+footer,
+table,
+input,
+textarea,
+button {
+    transition: background-color 0.3s ease,
+                color 0.3s ease,
+                border-color 0.3s ease;
+}
+
+
+/* DARK MODE */
+body.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+
+/* Header */
+body.dark-mode header {
+    background-color: #1e1e1e;
+    color: #ffffff;
+}
+
+
+/* Navigation */
+body.dark-mode nav a {
+    color: #ffffff;
+}
+
+
+/* Sections */
+body.dark-mode section {
+    background-color: #1a1a1a;
+    color: #ffffff;
+}
+
+
+/* Headings */
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3 {
+    color: #ffffff;
+}
+
+
+/* Paragraph */
+body.dark-mode p {
+    color: #dddddd;
+}
+
+
+/* Project Cards */
+body.dark-mode article {
+    background-color: #242424;
+    color: #ffffff;
+    border: 1px solid #444;
+}
+
+
+/* Links */
+body.dark-mode a {
+    color: #66b3ff;
+}
+
+
+/* Table */
+body.dark-mode table {
+    background-color: #242424;
+    color: #ffffff;
+    border-color: #555;
+}
+
+body.dark-mode th,
+body.dark-mode td {
+    border-color: #555;
+}
+
+
+/* Form Inputs */
+body.dark-mode input,
+body.dark-mode textarea {
+    background-color: #242424;
+    color: #ffffff;
+    border: 1px solid #666;
+}
+
+
+/* Placeholder */
+body.dark-mode input::placeholder,
+body.dark-mode textarea::placeholder {
+    color: #aaa;
+}
+
+
+/* Button */
+body.dark-mode button {
+    background-color: #ffffff;
+    color: #121212;
+}
+
 
 /* ========================================
    NAVIGATION - FLEXBOX
