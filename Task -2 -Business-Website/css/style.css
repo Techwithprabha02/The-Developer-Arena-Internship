@@ -1,0 +1,66 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+header {
+    padding: 20px;
+}
+
+nav {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+nav a {
+    text-decoration: none;
+}
+
+main {
+    padding: 40px 20px;
+}
+
+.hero {
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.services {
+    display: grid;
+    gap: 20px;
+}
+
+.services article {
+    padding: 20px;
+    border: 1px solid #ddd;
+}
+
+form {
+    max-width: 500px;
+    margin: auto;
+}
+
+input,
+textarea,
+button {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0 15px;
+}
+
+textarea {
+    min-height: 150px;
+}
+
+@media (min-width: 768px) {
+    .services {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
